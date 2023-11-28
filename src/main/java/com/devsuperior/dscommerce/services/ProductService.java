@@ -25,4 +25,17 @@ public class ProductService {
         Page<Product> products = productRepository.findAll(pageable);
         return products.map(ProductDTO::new);
     }
+
+    @Transactional
+    public ProductDTO insert(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setName(productDTO.name());
+        product.setDescription(productDTO.description());
+        product.setPrice(productDTO.price());
+        product.setImgUrl(productDTO.imgUrl());
+
+        product = productRepository.save(product);
+
+        return new ProductDTO(product);
+    }
 }
