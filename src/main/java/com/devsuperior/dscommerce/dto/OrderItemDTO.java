@@ -1,7 +1,6 @@
 package com.devsuperior.dscommerce.dto;
 
 import com.devsuperior.dscommerce.entities.OrderItem;
-import com.devsuperior.dscommerce.entities.OrderItemPK;
 
 public record OrderItemDTO(
         Long productId,
@@ -10,7 +9,7 @@ public record OrderItemDTO(
         Integer quantity
 ) {
     public OrderItemDTO(OrderItem orderItem) {
-        this(orderItem.getOrder().getId(),
+        this(orderItem.getProduct().getId(),
             orderItem.getProduct().getName(),
             orderItem.getPrice(),
             orderItem.getQuantity());
