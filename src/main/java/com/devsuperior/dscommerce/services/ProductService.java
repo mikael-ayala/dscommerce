@@ -1,7 +1,9 @@
 package com.devsuperior.dscommerce.services;
 
+import com.devsuperior.dscommerce.dto.CategoryDTO;
 import com.devsuperior.dscommerce.dto.ProductDTO;
 import com.devsuperior.dscommerce.dto.ProductMinDTO;
+import com.devsuperior.dscommerce.entities.Category;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.repositories.ProductRepository;
 import com.devsuperior.dscommerce.services.exceptions.DatabaseException;
@@ -14,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class ProductService {
@@ -74,5 +75,9 @@ public class ProductService {
         product.setDescription(productDTO.description());
         product.setPrice(productDTO.price());
         product.setImgUrl(productDTO.imgUrl());
+        product.getCategories().clear();
+        for (CategoryDTO cat : productDTO.categories()) {
+            product.getCategories().add(new Category(cat.id(), cat.name()));
+        }
     }
 }
