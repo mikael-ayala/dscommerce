@@ -1,26 +1,23 @@
 package com.devsuperior.dscommerce.dto;
 
-import com.devsuperior.dscommerce.entities.Category;
 import com.devsuperior.dscommerce.entities.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
 public record ProductDTO(
         Long id,
-        @Size(min = 3, max = 80, message = "O campo nome deve ter entre 3 e 80 caracteres.")
-        @NotBlank(message = "O campo nome não deve estar vazio.")
+        @Size(min = 3, max = 80, message = "O campo deve ter entre 3 e 80 caracteres.")
+        @NotBlank(message = "O campo não deve estar vazio.")
         String name,
-        @Size(min = 10, message = "O campo descrição deve ter pelo menos 10 caracteres.")
-        @NotBlank(message = "O campo descrição não deve estar vazio.")
+        @Size(min = 10, message = "O campo deve ter pelo menos 10 caracteres.")
+        @NotBlank(message = "O campo não deve estar vazio.")
         String description,
-        @Positive(message = "O campo valor deve ser positivo.")
+        @NotNull(message = "O campo não pode estar vazio.")
+        @Positive(message = "O campo deve ser positivo.")
         Double price,
         String imgUrl,
-        @NotEmpty(message = "O produto precisa de pelo menos uma categoria.")
+        @NotEmpty(message = "O campo precisa de pelo menos uma categoria.")
         List<CategoryDTO> categories
 ) {
     public ProductDTO(Product product) {
